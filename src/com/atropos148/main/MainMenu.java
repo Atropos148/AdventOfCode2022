@@ -23,6 +23,8 @@ public class MainMenu {
 		Day3 day3 = new Day3();
 		System.out.println("Day 3 Test: " + day3.getResultTest());
 		System.out.println("Day 3: " + day3.getResult());
+		System.out.println("Day 3 Extra Test: " + day3.getResultExtraTest());
+		System.out.println("Day 3 Extra: " + day3.getResultExtra());
 	}
 
 }

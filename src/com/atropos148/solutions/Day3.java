@@ -11,6 +11,9 @@ public class Day3 implements Day {
     private String resultTest = "";
     private String result = "";
 
+    private String resultTestExtra = "";
+    private String resultExtra = "";
+
     private String testData = """
             vJrwpWtwJgWrhcsFMMfFFhFp
             jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
@@ -44,6 +47,35 @@ public class Day3 implements Day {
         return String.valueOf(totalPriority);
     }
 
+    private String calculateGroupBadgesPriority(String data) {
+        String[] allBackpacks = data.split("\n");
+
+        int totalGroupBadgesPriority = 0;
+
+        int groupIndex;
+        for (groupIndex = 0; groupIndex < allBackpacks.length; groupIndex += 3) {
+            String[] group = { allBackpacks[groupIndex], allBackpacks[groupIndex + 1], allBackpacks[groupIndex + 2] };
+            Character groupBadge = findGroupBadge(group);
+            totalGroupBadgesPriority += countPriority(groupBadge);
+        }
+
+        return String.valueOf(totalGroupBadgesPriority);
+    }
+
+    private Character findGroupBadge(String[] group) {
+        int bagIndex;
+        Character groupBadge = 'a';
+        for (bagIndex = 0; bagIndex < group[0].length(); bagIndex++) {
+            String currentItem = String.valueOf(group[0].charAt(bagIndex));
+            if (group[1].contains(currentItem)) {
+                if (group[2].contains(currentItem)) {
+                    groupBadge = currentItem.charAt(0);
+                }
+            }
+        }
+        return groupBadge;
+    }
+
     private int countPriority(List<Character> items) {
         String priorities = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
         int totalPriority = 0;
@@ -54,6 +86,12 @@ public class Day3 implements Day {
         return totalPriority;
     }
 
+    private int countPriority(Character item) {
+        String priorities = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+        return priorities.indexOf(item) + 1;
+    }
+
     @Override
     public String getResultTest() {
         resultTest = calculateTotalPriority(testData);
@@ -62,7 +100,6 @@ public class Day3 implements Day {
 
     @Override
     public String getResult() {
-        // C:\\CODE\\Java\\projects\\AdventOfCode2022\\src\\Day3Data.txt
         String realData = DataReader.readData("Day3Data.txt");
         result = calculateTotalPriority(realData);
         return result;
@@ -70,14 +107,15 @@ public class Day3 implements Day {
 
     @Override
     public String getResultExtraTest() {
-        // TODO Auto-generated method stub
-        return null;
+        resultTestExtra = calculateGroupBadgesPriority(testData);
+        return resultTestExtra;
     }
 
     @Override
     public String getResultExtra() {
-        // TODO Auto-generated method stub
-        return null;
+        String realData = DataReader.readData("Day3Data.txt");
+        resultExtra = calculateGroupBadgesPriority(realData);
+        return resultExtra;
     }
 
 }
