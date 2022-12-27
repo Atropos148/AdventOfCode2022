@@ -33,6 +33,20 @@ public class Day4 implements Day {
         return String.valueOf(result);
     }
 
+    private String checkRanges(String ranges, boolean checkOverlap) {
+        int result = 0;
+        String[] allRanges = ranges.split("\n");
+        for (String range : allRanges) {
+            String firstRange = range.split(",")[0];
+            String secondRange = range.split(",")[1];
+
+            if (doesRangeOverlap(firstRange, secondRange)) {
+                result += 1;
+            }
+        }
+        return String.valueOf(result);
+    }
+
     private boolean isRangeWithin(String firstRange, String secondRange) {
         String[] firstRangeDetails = firstRange.split("-");
         String[] secondRangeDetails = secondRange.split("-");
@@ -52,6 +66,23 @@ public class Day4 implements Day {
         return false;
     }
 
+    private boolean doesRangeOverlap(String firstRange, String secondRange) {
+        String[] firstRangeDetails = firstRange.split("-");
+        String[] secondRangeDetails = secondRange.split("-");
+
+        int firstStart = Integer.parseInt(firstRangeDetails[0]);
+        int firstEnd = Integer.parseInt(firstRangeDetails[1]);
+
+        int secondStart = Integer.parseInt(secondRangeDetails[0]);
+        int secondEnd = Integer.parseInt(secondRangeDetails[1]);
+
+        if (firstStart <= secondEnd && firstEnd >= secondStart) {
+            return true;
+        }
+
+        return false;
+    }
+
     @Override
     public String getResultTest() {
         return checkRanges(testData);
@@ -65,14 +96,13 @@ public class Day4 implements Day {
 
     @Override
     public String getResultExtraTest() {
-        // TODO Auto-generated method stub
-        return null;
+        return checkRanges(testData, true);
     }
 
     @Override
     public String getResultExtra() {
-        // TODO Auto-generated method stub
-        return null;
+        String realData = DataReader.readData("Day4Data.txt");
+        return checkRanges(realData, true);
     }
 
 }
