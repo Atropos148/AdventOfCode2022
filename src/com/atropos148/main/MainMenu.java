@@ -4,6 +4,7 @@ import com.atropos148.solutions.Day1;
 import com.atropos148.solutions.Day2;
 import com.atropos148.solutions.Day3;
 import com.atropos148.solutions.Day4;
+import com.atropos148.solutions.Day5;
 
 public class MainMenu {
 
@@ -32,6 +33,9 @@ public class MainMenu {
 		System.out.println("Day 4: " + day4.getResult());
 		System.out.println("Day 4 Extra Test: " + day4.getResultExtraTest());
 		System.out.println("Day 4 Extra: " + day4.getResultExtra());
+
+		Day5 day5 = new Day5();
+		System.out.println("Day 5 Test: " + day5.getResultTest());
 	}
 
 }
