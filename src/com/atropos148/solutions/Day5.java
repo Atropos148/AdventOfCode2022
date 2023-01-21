@@ -1,7 +1,7 @@
 package com.atropos148.solutions;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.atropos148.main.Day;
 
@@ -12,9 +12,7 @@ public class Day5 implements Day {
     private String resultTestExtra = "";
     private String resultExtra = "";
 
-    private ArrayList<Character> stackA = new ArrayList<>();
-    private ArrayList<Character> stackB = new ArrayList<>();
-    private ArrayList<Character> stackC = new ArrayList<>();
+    ArrayList<ArrayList<Character>> stacks = new ArrayList<>();
 
     private String testData = """
                 [D]
@@ -27,27 +25,16 @@ public class Day5 implements Day {
             move 2 from 2 to 1
             move 1 from 1 to 2""";
 
-    private String getTopOfStacks(String data) {
-        char result = data.split("\n\n")[0].split("\n")[2].split(" ")[0].charAt(1);
-        return String.valueOf(result);
+    private String getTopOfStacks() {
+        StringBuilder result = new StringBuilder();
+        for (List<Character> stack : stacks) {
+            Character topCrate = stack.get(stack.size() - 1);
+            result.append(topCrate);
+        }
+        return result.toString();
     }
 
-    // private void setupStacksFromData(String data) {
-    // int numberOfStacks = 0;
-    // String[] dataRows = data.split("\n\n")[0].split("\n");
-    // for (String character : dataRows[dataRows.length - 1].strip().split(" ")) {
-    // try {
-    // int stackNumber = Integer.parseInt(character);
-    // numberOfStacks += 1;
-    // } catch (NumberFormatException e) {
-    // // e.printStackTrace();
-    // }
-    // }
-    // System.out.println(numberOfStacks);
-    // }
-
     private ArrayList<ArrayList<Character>> getStacksFromData(String data) {
-        ArrayList<ArrayList<Character>> stacks = new ArrayList<>();
         String[] boxLayers = data.split("\n\n")[0].split("\n ")[0].split("\n");
         int amountOfStacks = data.split("\n\n")[0].split("\n ")[1].strip().split("\\s+").length;
 
@@ -75,28 +62,15 @@ public class Day5 implements Day {
         }
 
         System.out.println(stacks);
+        getTopOfStacks();
 
         return stacks;
     }
 
-    // private int countNumberOfStacks(String data) {
-    // int numberOfStacks = 0;
-    // String[] dataRows = data.split("\n\n")[0].split("\n");
-    // for (String character : dataRows[dataRows.length - 1].strip().split(" ")) {
-    // try {
-    // int stackNumber = Integer.parseInt(character);
-    // numberOfStacks += 1;
-    // } catch (NumberFormatException e) {
-    // // e.printStackTrace();
-    // }
-    // }
-    // return numberOfStacks;
-    // }
-
     @Override
     public String getResultTest() {
         getStacksFromData(testData);
-        return getTopOfStacks(testData);
+        return getTopOfStacks();
     }
 
     @Override
