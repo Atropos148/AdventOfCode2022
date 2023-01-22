@@ -35,7 +35,9 @@ public class MainMenu {
 		System.out.println("Day 4 Extra: " + day4.getResultExtra());
 
 		Day5 day5 = new Day5();
-		System.out.println("Day 5 Test: " + day5.getResultTest());
+		// System.out.println("Day 5 Test: " + day5.getResultTest());
+
+		System.out.println("Day 5: " + day5.getResult());
 	}
 
 }

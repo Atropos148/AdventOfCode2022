@@ -1,8 +1,11 @@
 package com.atropos148.solutions;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.NoSuchElementException;
 
+import com.atropos148.main.DataReader;
 import com.atropos148.main.Day;
 
 public class Day5 implements Day {
@@ -36,31 +39,39 @@ public class Day5 implements Day {
     }
 
     private void getStacksFromData(String data) {
-        String[] boxLayers = data.split("\n\n")[0].split("\n ")[0].split("\n");
-        int amountOfStacks = data.split("\n\n")[0].split("\n ")[1].strip().split("\\s+").length;
+        stacks.clear();
+        ArrayList<String> boxLayers = new ArrayList<>(Arrays.asList(data.split("\n\n")[0].split("\n")));
+        boxLayers.remove(boxLayers.size() - 1);
+        String[] dataRows = data.split("\n\n")[0].split("\n");
+        String[] amountOfStacks = dataRows[dataRows.length - 1].split(" ");
+        int totalStacks = Integer.parseInt(amountOfStacks[amountOfStacks.length - 1]);
+
+        // for each stack
+        for (int x = 0; x < totalStacks; x++) {
+            stacks.add(new LinkedList<Character>());
+        }
 
         int currentStack = 0;
         int stackIndex = 1;
         final int stackOffset = 4;
 
-        // for each stack
-        for (int x = 0; x < amountOfStacks; x++) {
-            stacks.add(new LinkedList<Character>());
-            // for each layer of boxes
-            for (int i = boxLayers.length - 1; i >= 0; i--) {
-                String line = boxLayers[i];
+        // for each layer of boxes
+        for (LinkedList<Character> stack : stacks) {
+            for (int i = boxLayers.size(); i > 0; i--) {
+                String line = boxLayers.get(i - 1);
                 if (line.length() >= stackIndex) {
                     if (line.charAt(stackIndex) != ' ') {
                         stacks.get(currentStack).add(line.charAt(stackIndex));
                     }
-                } else {
-                    break;
                 }
 
             }
             currentStack += 1;
             stackIndex += stackOffset;
         }
+
+        System.out.println(stacks);
+
     }
 
     private void getOrders(String data) {
@@ -73,8 +84,13 @@ public class Day5 implements Day {
             int fromStack = Integer.parseInt(order.split(" ")[3]);
             int toStack = Integer.parseInt(order.split(" ")[5]);
 
-            for (int x = 0; x < howMany; x++) {
-                stacks.get(toStack - 1).add(stacks.get(fromStack - 1).removeLast());
+            try {
+                for (int x = 0; x < howMany; x++) {
+                    stacks.get(toStack - 1).add(stacks.get(fromStack - 1).removeLast());
+
+                }
+            } catch (NoSuchElementException e) {
+                e.printStackTrace();
             }
         }
     }
@@ -89,8 +105,11 @@ public class Day5 implements Day {
 
     @Override
     public String getResult() {
-        // TODO Auto-generated method stub
-        return null;
+        String realData = DataReader.readData("Day5Data.txt");
+        getStacksFromData(realData);
+        getOrders(realData);
+        moveCrates();
+        return getTopOfStacks();
     }
 
     @Override
