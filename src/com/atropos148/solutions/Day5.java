@@ -1,7 +1,7 @@
 package com.atropos148.solutions;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedList;
 
 import com.atropos148.main.Day;
 
@@ -12,7 +12,8 @@ public class Day5 implements Day {
     private String resultTestExtra = "";
     private String resultExtra = "";
 
-    ArrayList<ArrayList<Character>> stacks = new ArrayList<>();
+    ArrayList<LinkedList<Character>> stacks = new ArrayList<>();
+    String[] orders;
 
     private String testData = """
                 [D]
@@ -27,14 +28,14 @@ public class Day5 implements Day {
 
     private String getTopOfStacks() {
         StringBuilder result = new StringBuilder();
-        for (List<Character> stack : stacks) {
+        for (LinkedList<Character> stack : stacks) {
             Character topCrate = stack.get(stack.size() - 1);
             result.append(topCrate);
         }
         return result.toString();
     }
 
-    private ArrayList<ArrayList<Character>> getStacksFromData(String data) {
+    private void getStacksFromData(String data) {
         String[] boxLayers = data.split("\n\n")[0].split("\n ")[0].split("\n");
         int amountOfStacks = data.split("\n\n")[0].split("\n ")[1].strip().split("\\s+").length;
 
@@ -44,7 +45,7 @@ public class Day5 implements Day {
 
         // for each stack
         for (int x = 0; x < amountOfStacks; x++) {
-            stacks.add(new ArrayList<Character>());
+            stacks.add(new LinkedList<Character>());
             // for each layer of boxes
             for (int i = boxLayers.length - 1; i >= 0; i--) {
                 String line = boxLayers[i];
@@ -60,16 +61,29 @@ public class Day5 implements Day {
             currentStack += 1;
             stackIndex += stackOffset;
         }
+    }
 
-        System.out.println(stacks);
-        getTopOfStacks();
+    private void getOrders(String data) {
+        orders = data.split("\n\n")[1].split("\n");
+    }
 
-        return stacks;
+    private void moveCrates() {
+        for (String order : orders) {
+            int howMany = Integer.parseInt(order.split(" ")[1]);
+            int fromStack = Integer.parseInt(order.split(" ")[3]);
+            int toStack = Integer.parseInt(order.split(" ")[5]);
+
+            for (int x = 0; x < howMany; x++) {
+                stacks.get(toStack - 1).add(stacks.get(fromStack - 1).removeLast());
+            }
+        }
     }
 
     @Override
     public String getResultTest() {
         getStacksFromData(testData);
+        getOrders(testData);
+        moveCrates();
         return getTopOfStacks();
     }
 
