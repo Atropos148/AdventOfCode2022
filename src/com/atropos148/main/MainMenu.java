@@ -41,6 +41,7 @@ public class MainMenu {
 
 		Day day6 = new Day6();
 		System.out.println("Day 6 Test: " + day6.getResultTest());
+		System.out.println("Day 6 Test: " + day6.getResult());
 	}
 
 }

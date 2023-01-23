@@ -1,9 +1,11 @@
 package com.atropos148.solutions;
 
+import com.atropos148.main.DataReader;
 import com.atropos148.main.Day;
 
 public class Day6 implements Day {
     String testData = "mjqjpqmgbljsphdztnvjfqwrcgsmlb";
+    String realData = DataReader.readData("Day6Data.txt");
 
     private boolean areCharactersUnique(String characters) {
         for (int i = 0; i < characters.length(); i++) {
@@ -33,8 +35,7 @@ public class Day6 implements Day {
 
     @Override
     public String getResult() {
-        // TODO Auto-generated method stub
-        return null;
+        return String.valueOf(findPacketStart(realData));
     }
 
     @Override
