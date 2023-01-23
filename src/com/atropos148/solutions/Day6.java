@@ -28,6 +28,17 @@ public class Day6 implements Day {
         return currentIndex;
     }
 
+    private int findMessageStart(String data) {
+        int currentIndex = 0;
+
+        for (currentIndex = 14; currentIndex < data.length(); currentIndex++) {
+            if (areCharactersUnique(data.substring(currentIndex - 14, currentIndex)) == true) {
+                return currentIndex;
+            }
+        }
+        return currentIndex;
+    }
+
     @Override
     public String getResultTest() {
         return String.valueOf(findPacketStart(testData));
@@ -40,14 +51,12 @@ public class Day6 implements Day {
 
     @Override
     public String getResultExtraTest() {
-        // TODO Auto-generated method stub
-        return null;
+        return String.valueOf(findMessageStart(testData));
     }
 
     @Override
     public String getResultExtra() {
-        // TODO Auto-generated method stub
-        return null;
+        return String.valueOf(findMessageStart(realData));
     }
 
 }
