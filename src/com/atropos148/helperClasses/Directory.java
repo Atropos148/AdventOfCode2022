@@ -7,6 +7,7 @@ public class Directory {
     private List<Directory> directories = new ArrayList<>();
     private List<File> files = new ArrayList<>();
     private String name;
+    private Directory parentDirectory;
 
     public Directory(String name) {
         this.name = name;
@@ -34,6 +35,14 @@ public class Directory {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Directory getParentDirectory() {
+        return parentDirectory;
+    }
+
+    public void setParentDirectory(Directory parentDirectory) {
+        this.parentDirectory = parentDirectory;
     }
 
 }
