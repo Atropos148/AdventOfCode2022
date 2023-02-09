@@ -8,10 +8,22 @@ public class Directory {
     private List<File> files = new ArrayList<>();
     private String name;
     private Directory parentDirectory;
+    private int totalSize;
 
     public Directory(String name, Directory parentDirectory) {
         this.name = name;
         this.parentDirectory = parentDirectory;
+    }
+
+    public void addFile(File newFile) {
+        files.add(newFile);
+        totalSize += newFile.getSize();
+    }
+
+    public void showFiles() {
+        for (File currentFile : files) {
+            System.out.println(currentFile.getSize() + " " + currentFile.getName());
+        }
     }
 
     public Directory(String name) {
@@ -53,6 +65,10 @@ public class Directory {
     @Override
     public String toString() {
         return "Directory [name=" + name + ", pD=" + parentDirectory + "]";
+    }
+
+    public int getTotalSize() {
+        return totalSize;
     }
 
 }

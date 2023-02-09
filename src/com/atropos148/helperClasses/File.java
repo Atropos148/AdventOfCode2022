@@ -13,16 +13,8 @@ public class File {
         return size;
     }
 
-    public void setSize(int size) {
-        this.size = size;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
 }
