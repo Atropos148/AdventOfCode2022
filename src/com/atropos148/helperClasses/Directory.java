@@ -9,6 +9,11 @@ public class Directory {
     private String name;
     private Directory parentDirectory;
 
+    public Directory(String name, Directory parentDirectory) {
+        this.name = name;
+        this.parentDirectory = parentDirectory;
+    }
+
     public Directory(String name) {
         this.name = name;
     }
@@ -43,6 +48,11 @@ public class Directory {
 
     public void setParentDirectory(Directory parentDirectory) {
         this.parentDirectory = parentDirectory;
+    }
+
+    @Override
+    public String toString() {
+        return "Directory [name=" + name + ", pD=" + parentDirectory + "]";
     }
 
 }
