@@ -20,23 +20,19 @@ public class Day7 implements Day {
     private void handleCommand(String command) {
         String[] commandParts = command.split(" ");
         if (commandParts[1].equals("cd")) {
-            // System.out.println("command is cd");
-            Directory newDir = changeDirectory(command);
-            if (!directories.contains(newDir)) {
-                directories.add(newDir);
+            if (currentDirectory != null) {
+                if (currentDirectory.findDirectory(commandParts[2]) != null) {
+                    changeDirectory(command);
+                }
+            } else {
+                currentDirectory = baseDirectory;
             }
-            // System.out.println(directories);
-        } else if (commandParts[1].equals("ls")) {
-            System.out.println("command ls");
         }
     }
 
     public void showFileSystem() {
-        for (Directory directory : directories) {
-            System.out.println(directory.getName());
-            // directory.showFiles();
-            System.out.println(directory.getTotalSize());
-        }
+        // baseDirectory.showFiles();
+        baseDirectory.showDirectories();
     }
 
     private boolean isACommand(String line) {
@@ -47,7 +43,17 @@ public class Day7 implements Day {
         currentDirectory.addFile(createFile(row));
     }
 
-    private Directory changeDirectory(String command) {
+    private void handleDirectory(String row) {
+        String[] commandParts = row.split(" ");
+        if (currentDirectory.findDirectory(commandParts[1]) == null) {
+            createDirectory(row);
+        }
+        // else {
+        // currentDirectory = currentDirectory.findDirectory(commandParts[1]);
+        // }
+    }
+
+    private void changeDirectory(String command) {
         Directory newDirectory;
 
         String[] commandParts = command.split(" ");
@@ -56,15 +62,16 @@ public class Day7 implements Day {
                 newDirectory = currentDirectory.getParentDirectory();
                 currentDirectory = newDirectory;
             } else {
-                newDirectory = baseDirectory;
                 currentDirectory = baseDirectory;
             }
         } else {
-            newDirectory = new Directory(commandParts[2], currentDirectory);
-            currentDirectory = newDirectory;
+            if (currentDirectory.findDirectory(commandParts[2]) != null) {
+                currentDirectory = currentDirectory.findDirectory(commandParts[2]);
+            } else {
+                newDirectory = createDirectory(command);
+                currentDirectory = newDirectory;
+            }
         }
-
-        return newDirectory;
     }
 
     private File createFile(String row) {
@@ -73,22 +80,31 @@ public class Day7 implements Day {
         return newFile;
     }
 
+    private Directory createDirectory(String row) {
+        String[] rowParts = row.split(" ");
+        Directory newDirectory = new Directory(rowParts[1], currentDirectory);
+        currentDirectory.addDirectory(newDirectory);
+        return newDirectory;
+    }
+
     @Override
     public String getResultTest() {
         String[] rows = testData.split("\n");
         int index = 0;
         for (index = 0; index < rows.length; index++) {
             String row = rows[index];
-            System.out.println(row);
             if (isACommand(row)) {
                 handleCommand(row);
             } else {
                 String[] rowParts = row.split(" ");
                 if (!rowParts[0].equals("dir")) {
                     handleFile(row);
+                } else {
+                    handleDirectory(row);
                 }
             }
         }
+        showFileSystem();
         return null;
     }
 

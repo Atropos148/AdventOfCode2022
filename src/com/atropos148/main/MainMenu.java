@@ -48,7 +48,6 @@ public class MainMenu {
 
 		Day7 day7 = new Day7();
 		System.out.println("Day 7 Test: " + day7.getResultTest());
-		day7.showFileSystem();
 	}
 
 }

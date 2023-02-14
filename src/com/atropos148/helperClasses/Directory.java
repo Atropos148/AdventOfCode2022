@@ -20,9 +20,28 @@ public class Directory {
         totalSize += newFile.getSize();
     }
 
+    public void addDirectory(Directory newDirectory) {
+        directories.add(newDirectory);
+    }
+
+    public Directory findDirectory(String name) {
+        for (Directory directory : directories) {
+            if (directory.name.equals(name)) {
+                return directory;
+            }
+        }
+        return null;
+    }
+
     public void showFiles() {
         for (File currentFile : files) {
             System.out.println(currentFile.getSize() + " " + currentFile.getName());
+        }
+    }
+
+    public void showDirectories() {
+        for (Directory currentDirectory : directories) {
+            System.out.println(String.valueOf(currentDirectory.getTotalSize()) + " " + currentDirectory.getName());
         }
     }
 
