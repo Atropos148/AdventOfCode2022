@@ -7,11 +7,12 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class DataReader {
+
     public static String readData(String fileLocation) {
-        File fileToRead = new File("src/com/atropos148/main/" + fileLocation);
+        File fileToRead = new File("AdventOfCode2022/src/com/atropos148/main/" + fileLocation.trim());
         StringBuilder st = new StringBuilder();
         String bufferString = "";
-        String day3data = "";
+        String dataFromFile = "";
         try {
             BufferedReader br = new BufferedReader(new FileReader(fileToRead));
 
@@ -24,10 +25,19 @@ public class DataReader {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+            finally {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        day3data = st.toString();
-        return day3data;
+        dataFromFile = st.toString();
+        return dataFromFile;
     }
 }

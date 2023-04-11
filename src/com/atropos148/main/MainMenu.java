@@ -7,16 +7,17 @@ import com.atropos148.solutions.Day4;
 import com.atropos148.solutions.Day5;
 import com.atropos148.solutions.Day6;
 import com.atropos148.solutions.Day7;
+import com.atropos148.solutions.Day8;
 
 public class MainMenu {
 
 	public static void main(String[] args) {
 		System.out.println("Hello World!");
-		Day day1 = new Day1();
-		System.out.println("Day 1: Test: " + day1.getResultTest());
-		System.out.println("Day 1: Result: " + day1.getResult());
-		System.out.println("Day 1: Test TopThree: " + day1.getResultExtraTest());
-		System.out.println("Day 1: Result TopThree: " + day1.getResultExtra());
+		// Day day1 = new Day1();
+		// System.out.println("Day 1: Test: " + day1.getResultTest());
+		// System.out.println("Day 1: Result: " + day1.getResult());
+		// System.out.println("Day 1: Test TopThree: " + day1.getResultExtraTest());
+		// System.out.println("Day 1: Result TopThree: " + day1.getResultExtra());
 
 		Day day2 = new Day2();
 		System.out.println("Day 2 Test: " + day2.getResultTest());
@@ -36,7 +37,7 @@ public class MainMenu {
 		System.out.println("Day 4 Extra Test: " + day4.getResultExtraTest());
 		System.out.println("Day 4 Extra: " + day4.getResultExtra());
 
-		Day day5 = new Day5();
+		// Day day5 = new Day5();
 		// System.out.println("Day 5 Test: " + day5.getResultTest());
 		// System.out.println("Day 5: " + day5.getResult());
 
@@ -46,8 +47,11 @@ public class MainMenu {
 		System.out.println("Day 6 Extra Test: " + day6.getResultExtraTest());
 		System.out.println("Day 6 Extra: " + day6.getResultExtra());
 
-		Day7 day7 = new Day7();
-		System.out.println("Day 7 Test: " + day7.getResultTest());
+		// Day7 day7 = new Day7();
+		// System.out.println("Day 7 Test: " + day7.getResultTest());
+
+		Day day8 = new Day8();
+		System.out.println(day8.getResultTest());
 	}
 
 }
