@@ -21,9 +21,8 @@ public class Day8 implements Day {
         String leftCheck = rowToCheck.substring(0, column + 1);
         String rightCheck = rowToCheck.substring(column);
 
-        System.out.println(rightCheck);
         System.out.println("Is tree visible from the left? : " + isTreeVisibleFromTheLeft(leftCheck));
-        System.out.println("Is tree visible from the right? : " + isTreeVisibleFromTheLeft(rightCheck));
+        System.out.println("Is tree visible from the right? : " + isTreeVisibleFromTheRight(rightCheck));
         return false;
     }
 
@@ -44,7 +43,7 @@ public class Day8 implements Day {
         StringBuilder trees = new StringBuilder();
         trees.append(data);
         trees.reverse();
-        String treesToTest = trees.toString().substring(0, data.length() - 2);
+        String treesToTest = trees.toString().substring(0, data.length() - 1);
 
         int treeHeight = Character.getNumericValue(trees.toString().charAt(data.length() - 1));
 
