@@ -14,8 +14,52 @@ public class Day8 implements Day {
         return totalOuterTrees;
     }
 
+    private boolean isTreeVisible(String data, int row, int column) {
+        System.out.println("Checking tree: row:" + row + " column:" + column);
+        String rowToCheck = data.split("\n")[row];
+
+        String leftCheck = rowToCheck.substring(0, column + 1);
+        String rightCheck = rowToCheck.substring(column);
+
+        System.out.println(rightCheck);
+        System.out.println("Is tree visible from the left? : " + isTreeVisibleFromTheLeft(leftCheck));
+        System.out.println("Is tree visible from the right? : " + isTreeVisibleFromTheLeft(rightCheck));
+        return false;
+    }
+
+    private boolean isTreeVisibleFromTheLeft(String data) {
+        String treesToTest = data.substring(0, data.length() - 2);
+        int treeHeight = Character.getNumericValue(data.charAt(data.length() - 1));
+
+        for (char number : treesToTest.toCharArray()) {
+            int testingTreeHeight = Character.getNumericValue(number);
+            if (testingTreeHeight >= treeHeight) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean isTreeVisibleFromTheRight(String data) {
+        StringBuilder trees = new StringBuilder();
+        trees.append(data);
+        trees.reverse();
+        String treesToTest = trees.toString().substring(0, data.length() - 2);
+
+        int treeHeight = Character.getNumericValue(trees.toString().charAt(data.length() - 1));
+
+        for (char number : treesToTest.toCharArray()) {
+            int testingTreeHeight = Character.getNumericValue(number);
+            if (testingTreeHeight >= treeHeight) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     @Override
     public String getResultTest() {
+        isTreeVisible(testData, 1, 1);
         return Integer.toString(countOuterTrees(testData));
     }
 
