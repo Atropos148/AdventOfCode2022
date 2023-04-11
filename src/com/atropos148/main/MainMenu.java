@@ -51,7 +51,7 @@ public class MainMenu {
 		// System.out.println("Day 7 Test: " + day7.getResultTest());
 
 		Day day8 = new Day8();
-		System.out.println(day8.getResultTest());
+		System.out.println("Day 8 Test: " + day8.getResultTest());
 	}
 
 }

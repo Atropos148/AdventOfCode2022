@@ -15,20 +15,52 @@ public class Day8 implements Day {
     }
 
     private boolean isTreeVisible(String data, int row, int column) {
-        System.out.println("Checking tree: row:" + row + " column:" + column);
+        // System.out.println("Checking tree: row:" + row + " column:" + column);
         String rowToCheck = data.split("\n")[row];
 
         String leftCheck = rowToCheck.substring(0, column + 1);
         String rightCheck = rowToCheck.substring(column);
 
-        String topCheck = getColumnToCheckTrees(data, column).substring(0, column + 1);
-        String bottomCheck = getColumnToCheckTrees(data, column).substring(column);
+        String topCheck = getColumnToCheckTrees(data, column).substring(0, row + 1);
+        String bottomCheck = getColumnToCheckTrees(data, column).substring(row);
 
-        System.out.println("Is tree visible from the top? : " + isTreeVisibleFromTheTop(topCheck));
-        System.out.println("Is tree visible from the bottom? : " + isTreeVisibleFromTheBottom(bottomCheck));
-        System.out.println("Is tree visible from the left? : " + isTreeVisibleFromTheLeft(leftCheck));
-        System.out.println("Is tree visible from the right? : " + isTreeVisibleFromTheRight(rightCheck));
+        // System.out.println("\n");
+
+        // System.out.println(leftCheck);
+        // System.out.println(topCheck);
+
+        System.out.println("Is tree visible from the top? : " +
+                isTreeVisibleFromTheTop(topCheck));
+        System.out.println("Is tree visible from the bottom? : " +
+                isTreeVisibleFromTheBottom(bottomCheck));
+        System.out.println("Is tree visible from the left? : " +
+                isTreeVisibleFromTheLeft(leftCheck));
+        System.out.println("Is tree visible from the right? : " +
+                isTreeVisibleFromTheRight(rightCheck));
+
+        if (isTreeVisibleFromTheTop(topCheck) || isTreeVisibleFromTheBottom(bottomCheck)
+                || isTreeVisibleFromTheLeft(leftCheck) || isTreeVisibleFromTheRight(rightCheck)) {
+            return true;
+        }
+
         return false;
+    }
+
+    private int countVisibleTrees(String data) {
+        int visibleTrees = 0;
+        int endColumn = data.split("\n")[0].length() - 2;
+        int endRow = data.split("\n").length - 2;
+
+        for (int column = 1; column <= endColumn; column++) {
+            for (int row = 1; row <= endRow; row++) {
+                if (isTreeVisible(data, row, column)) {
+                    visibleTrees += 1;
+                    System.out.println("row:" + row + " column: " + column);
+                }
+            }
+        }
+
+        return visibleTrees;
     }
 
     private boolean isTreeVisibleFromTheTop(String data) {
@@ -102,8 +134,9 @@ public class Day8 implements Day {
 
     @Override
     public String getResultTest() {
-        isTreeVisible(testData, 1, 1);
-        return Integer.toString(countOuterTrees(testData));
+        int totalVisibleTrees = countOuterTrees(testData) + countVisibleTrees(testData);
+        // isTreeVisible(testData, 1, 1);
+        return Integer.toString(totalVisibleTrees);
     }
 
     @Override
