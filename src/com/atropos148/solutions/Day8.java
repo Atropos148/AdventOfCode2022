@@ -21,9 +21,44 @@ public class Day8 implements Day {
         String leftCheck = rowToCheck.substring(0, column + 1);
         String rightCheck = rowToCheck.substring(column);
 
+        String topCheck = getColumnToCheckTrees(data, column).substring(0, column + 1);
+        String bottomCheck = getColumnToCheckTrees(data, column).substring(column);
+
+        System.out.println("Is tree visible from the top? : " + isTreeVisibleFromTheTop(topCheck));
+        System.out.println("Is tree visible from the bottom? : " + isTreeVisibleFromTheBottom(bottomCheck));
         System.out.println("Is tree visible from the left? : " + isTreeVisibleFromTheLeft(leftCheck));
         System.out.println("Is tree visible from the right? : " + isTreeVisibleFromTheRight(rightCheck));
         return false;
+    }
+
+    private boolean isTreeVisibleFromTheTop(String data) {
+        String treesToTest = data.substring(0, data.length() - 2);
+        int treeHeight = Character.getNumericValue(data.charAt(data.length() - 1));
+
+        for (char number : treesToTest.toCharArray()) {
+            int testingTreeHeight = Character.getNumericValue(number);
+            if (testingTreeHeight >= treeHeight) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean isTreeVisibleFromTheBottom(String data) {
+        StringBuilder trees = new StringBuilder();
+        trees.append(data);
+        trees.reverse();
+        String treesToTest = trees.toString().substring(0, data.length() - 1);
+
+        int treeHeight = Character.getNumericValue(trees.toString().charAt(data.length() - 1));
+
+        for (char number : treesToTest.toCharArray()) {
+            int testingTreeHeight = Character.getNumericValue(number);
+            if (testingTreeHeight >= treeHeight) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private boolean isTreeVisibleFromTheLeft(String data) {
@@ -54,6 +89,15 @@ public class Day8 implements Day {
             }
         }
         return true;
+    }
+
+    private String getColumnToCheckTrees(String data, int column) {
+        StringBuilder columnToCheck = new StringBuilder();
+        String[] rows = data.split("\n");
+        for (String row : rows) {
+            columnToCheck.append(row.charAt(column));
+        }
+        return columnToCheck.toString();
     }
 
     @Override
