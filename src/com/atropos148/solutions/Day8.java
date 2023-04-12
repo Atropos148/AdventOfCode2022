@@ -6,6 +6,7 @@ import com.atropos148.main.DataReader;
 public class Day8 implements Day {
 
     private String testData = DataReader.readData("Day8TestData.txt");
+    private String realData = DataReader.readData("Day8Data.txt");
 
     private int countOuterTrees(String data) {
         int columns = data.split("\n")[0].length();
@@ -142,8 +143,8 @@ public class Day8 implements Day {
 
     @Override
     public String getResult() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getResult'");
+        int totalVisibleTrees = countOuterTrees(realData) + countVisibleTrees(realData);
+        return Integer.toString(totalVisibleTrees);
     }
 
     @Override

@@ -52,6 +52,7 @@ public class MainMenu {
 
 		Day day8 = new Day8();
 		System.out.println("Day 8 Test: " + day8.getResultTest());
+		System.out.println("Day 8 : " + day8.getResult());
 	}
 
 }
