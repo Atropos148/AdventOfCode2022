@@ -29,14 +29,15 @@ public class Day8 implements Day {
         // System.out.println(leftCheck);
         // System.out.println(topCheck);
 
-        System.out.println("Is tree visible from the top? : " +
-                isTreeVisibleFromTheTop(topCheck));
-        System.out.println("Is tree visible from the bottom? : " +
-                isTreeVisibleFromTheBottom(bottomCheck));
-        System.out.println("Is tree visible from the left? : " +
-                isTreeVisibleFromTheLeft(leftCheck));
-        System.out.println("Is tree visible from the right? : " +
-                isTreeVisibleFromTheRight(rightCheck));
+        // System.out.println();
+        // System.out.println("Is tree visible from the top? : " +
+        // isTreeVisibleFromTheTop(topCheck));
+        // System.out.println("Is tree visible from the bottom? : " +
+        // isTreeVisibleFromTheBottom(bottomCheck));
+        // System.out.println("Is tree visible from the left? : " +
+        // isTreeVisibleFromTheLeft(leftCheck));
+        // System.out.println("Is tree visible from the right? : " +
+        // isTreeVisibleFromTheRight(rightCheck));
 
         if (isTreeVisibleFromTheTop(topCheck) || isTreeVisibleFromTheBottom(bottomCheck)
                 || isTreeVisibleFromTheLeft(leftCheck) || isTreeVisibleFromTheRight(rightCheck)) {
@@ -55,7 +56,7 @@ public class Day8 implements Day {
             for (int row = 1; row <= endRow; row++) {
                 if (isTreeVisible(data, row, column)) {
                     visibleTrees += 1;
-                    System.out.println("row:" + row + " column: " + column);
+                    // System.out.println("row:" + row + " column: " + column);
                 }
             }
         }
@@ -64,7 +65,7 @@ public class Day8 implements Day {
     }
 
     private boolean isTreeVisibleFromTheTop(String data) {
-        String treesToTest = data.substring(0, data.length() - 2);
+        String treesToTest = data.substring(0, data.length() - 1);
         int treeHeight = Character.getNumericValue(data.charAt(data.length() - 1));
 
         for (char number : treesToTest.toCharArray()) {
@@ -94,7 +95,7 @@ public class Day8 implements Day {
     }
 
     private boolean isTreeVisibleFromTheLeft(String data) {
-        String treesToTest = data.substring(0, data.length() - 2);
+        String treesToTest = data.substring(0, data.length() - 1);
         int treeHeight = Character.getNumericValue(data.charAt(data.length() - 1));
 
         for (char number : treesToTest.toCharArray()) {
